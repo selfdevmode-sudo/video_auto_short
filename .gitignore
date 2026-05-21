@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+videos/
+token.pickle
+client_secrets.json
+*.egg-info/
+.DS_Store
