@@ -1,0 +1,70 @@
+# ============================================================
+#  faceless — configuration
+#  Everything you can tweak lives here. Sensible defaults set.
+# ============================================================
+
+# ---- Local LLM (LM Studio) ----------------------------------
+# Start LM Studio, load a model, click "Start Server" (Developer tab).
+# The default LM Studio server URL is below — usually no change needed.
+llm:
+  base_url: 'http://localhost:1234/v1'
+  api_key: 'lm-studio' # LM Studio ignores this, but the client wants *something*
+  model: 'local-model' # LM Studio routes to whatever model is loaded; leave as-is
+  temperature: 0.7
+  max_tokens: 4000
+
+# ---- Voiceover ----------------------------------------------
+# engine: "kokoro" (local, recommended) | "edge" (online, free, very natural)
+tts:
+  engine: 'kokoro'
+  kokoro_voice: 'af_heart' # see README for the full voice list
+  edge_voice: 'en-US-AriaNeural'
+  speed: 1.0
+
+# ---- Video format -------------------------------------------
+# Set format to "normal" for 16:9 videos or "shorts" for 9:16 vertical videos.
+# New scripts remember the selected preset in their project state.
+video:
+  format: 'shorts'
+  formats:
+    normal:
+      script_minutes: 3.0
+      resolution: [1920, 1080]
+      stock_orientation: 'landscape'
+    shorts:
+      script_minutes: 0.8
+      max_seconds: 180
+      resolution: [1080, 1920]
+      stock_orientation: 'portrait'
+
+# ---- Visuals ------------------------------------------------
+# Free API keys — see README for the 2-minute signup links.
+# Leave blank to use solid-color slides instead of stock footage.
+visuals:
+  pexels_api_key: 'YcJ1OCFcBoTxl46jVAAboyy3wR64qCBpwwuEUf3E6dFAH9S9llGXAjkH'
+  pixabay_api_key: '55956395-2a26465f255f4a38a52ebefbe'
+  # source: "stock" pulls B-roll video from Pexels/Pixabay matching keywords.
+  #         "images" pulls free stock photos from Pexels/Pixabay matching keywords.
+  #         "slides" makes clean title-card slides (no API key needed).
+  source: 'images'
+  fps: 30
+
+# ---- Captions -----------------------------------------------
+captions:
+  enabled: true
+  model_size: 'base' # tiny | base | small | medium  (base is a good balance)
+  burn_in: true # true = baked into video; false = separate .srt file
+  require_burn_in_for_shorts: true
+
+# ---- Output -------------------------------------------------
+output:
+  dir: './videos' # each project gets its own subfolder here
+
+# ---- Upload (OPTIONAL) --------------------------------------
+# Off by default. You don't need any of this to make videos.
+# Wire it up later, only once you've found a format that works.
+upload:
+  enabled: false
+  privacy: 'private' # always uploads as private; you publish manually
+  client_secrets: './client_secrets.json'
+  category_id: '27' # 27 = Education. 28 = Science & Tech, 24 = Entertainment

@@ -1,0 +1,32 @@
+[project]
+name = "faceless"
+version = "0.1.0"
+description = "A $0, local-first pipeline for faceless YouTube videos"
+requires-python = ">=3.10"
+dependencies = [
+    "openai>=1.0",        # talks to LM Studio's local endpoint
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+# install what you actually use:
+kokoro = ["kokoro>=0.9", "soundfile"]
+edge = ["edge-tts"]
+captions = ["faster-whisper", "pillow>=10"]
+upload = ["google-api-python-client", "google-auth-oauthlib"]
+# everything at once:
+all = [
+    "kokoro>=0.9", "soundfile", "edge-tts",
+    "faster-whisper", "pillow>=10",
+    "google-api-python-client", "google-auth-oauthlib",
+]
+
+[project.scripts]
+faceless = "faceless.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["faceless*"]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
